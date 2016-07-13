@@ -1,12 +1,8 @@
-//
-//  SnakeCollectionViewLayout.m
-//  Lesson2
-//
-//  Created by Azat Almeev on 26.09.15.
-//  Copyright © 2015 Azat Almeev. All rights reserved.
-//
+
 
 #import "ChartLayout.h"
+
+#define kItemSize 20
 
 @interface ChartLayout () {
     CGSize contentSize;
@@ -16,8 +12,6 @@
 @end
 
 @implementation ChartLayout
-
-#define kItemSize 50
 
 - (NSInteger)numberOfItems {
     id<UICollectionViewDataSource> dataSource = self.collectionView.dataSource;
@@ -35,7 +29,7 @@
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-    attr.frame = CGRectMake(indexPath.row*kItemSize*2, 0, kItemSize, self.collectionView.bounds.size.height);
+    attr.frame = CGRectMake(indexPath.row*kItemSize, 0, kItemSize, self.collectionView.bounds.size.height);
     return attr;
 }
 

@@ -13,10 +13,8 @@
 @interface ViewController ()
 
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
-@property (nonatomic, strong) NSArray *dataArray;
 
 @property (nonatomic, strong) ChartData *chartData;
-
 @property (nonatomic, strong) NSNumber *maxNumberInVisible;
 
 @end
@@ -25,109 +23,101 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
     self.chartData = [[ChartData alloc] init];
-    self.maxNumberInVisible = @0;
     
-    self.collectionView.delegate = self;
-    self.collectionView.dataSource = self;
-    
-//    NSMutableArray *firstSection = [[NSMutableArray alloc] init];
-//    for (int i=0; i<50; i++) {
-//        [firstSection addObject:[NSString stringWithFormat:@"Cell %d", i]];
-//    }
-    self.dataArray = [[NSArray alloc] initWithObjects:self.chartData.dataArray, nil];
-    
-    UINib *cellNib = [UINib nibWithNibName:@"NibCell" bundle:nil];
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
-    
-    [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
+    [self configureCollectionView];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return [self.dataArray count];
-}
-
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSMutableArray *sectionArray = [self.dataArray objectAtIndex:section];
-    return [sectionArray count];
-}
-
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCollectionView {
+    UINib *cellNib = [UINib nibWithNibName:@"NibCell" bundle:nil];
     
-    NSMutableArray *data = [self.dataArray objectAtIndex:indexPath.section];
+    self.collectionView.delegate = self;
+    self.collectionView.dataSource = self;
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     
-    NSString *cellData = [[data objectAtIndex:indexPath.row] stringValue];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
+    [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
+    [self.collectionView setPagingEnabled: true];
+
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    self.maxNumberInVisible = @0;
+    
+    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+
+        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
+
+        if ([num doubleValue] > [self.maxNumberInVisible doubleValue]) {
+            self.maxNumberInVisible = num;
+        }
+    }
+    
+    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+
+        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
+        
+        float percent = 100;
+        if (![self.maxNumberInVisible isEqual: @0]) {
+            float over = [num floatValue];
+            float to = [self.maxNumberInVisible floatValue];
+            percent = over/to;
+        }
+        //NSLog(@"%@", self.maxNumberInVisible);
+        NSLog(@"%@", num);
+        
+        [UIView animateWithDuration: 1.0f animations: ^{
+            cell.frame = [self getNewFrameWithOffsetY: percent oldFrame: cell.frame];
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [self.chartData.dataArray count];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *cellData = [[self.chartData.dataArray objectAtIndex:indexPath.row] stringValue];
     
     static NSString *cellIdentifier = @"cvCell";
+
+    double yOffset = ([self.chartData.dataArray[indexPath.row] floatValue] / 1000);
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    cell.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: cell.frame];
     
     UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
-    
+    titleLabel.transform= CGAffineTransformMakeRotation(-M_PI_2);
     [titleLabel setText:cellData];
     
     return cell;
     
 }
 
-//- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    self.maxNumberInVisible = @0;
-//    
-//    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
-//        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-//        
-//        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
-//        
-//        if ([num doubleValue] > [self.maxNumberInVisible doubleValue]) {
-//            self.maxNumberInVisible = num;
-//        }
-//        
-//        float percent = 100;
-//        if (![self.maxNumberInVisible isEqual: @0]) {
-//            float over = [num floatValue];
-//            float to = [self.maxNumberInVisible floatValue];
-//            percent = over/to;
-//        }
-//        
-//        cell.transform = CGAffineTransformIdentity;
-//        cell.transform = CGAffineTransformScale(cell.transform, 1, percent);
-//        NSLog(@"%@",num);
-//    }
-//}
-
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    CGFloat picDimension = self.view.frame.size.width / 4.0f;
-//    return CGSizeMake(picDimension, picDimension);
-//}
-//
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-//{
-//    CGFloat leftRightInset = self.view.frame.size.width / 14.0f;
-//    return UIEdgeInsetsMake(0, leftRightInset, 0, leftRightInset);
-//}
-
-
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
-//    //You may want to create a divider to scale the size by the way..
-//    float percent = 100;
-//    if (![self.maxNumberInVisible isEqual: @0]) {
-//        float over = [num floatValue];
-//        float to = [self.maxNumberInVisible floatValue];
-//        percent = over/to;
-//    }
-//    
-//    return CGSizeMake(50, self.collectionView.bounds.size.height*0.6f);
-//}
-
-
+/*
+ Смещает ячейку в зависимости от offset (в процентах)
+ */
+- (CGRect)getNewFrameWithOffsetY:(float)offset oldFrame:(CGRect)oldFrame {
+    CGRect newFrame = oldFrame;
+    float frameHeight = newFrame.size.height;
+    
+    newFrame.origin.y = frameHeight-frameHeight*offset;
+    
+    return newFrame;
+}
 
 /*
 #pragma mark - Navigation

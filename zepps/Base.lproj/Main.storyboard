@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wGo-hx-V2O">
-                                <rect key="frame" x="0.0" y="189" width="320" height="379"/>
+                                <rect key="frame" x="0.0" y="223" width="320" height="266"/>
                                 <collectionViewLayout key="collectionViewLayout" id="wQe-fL-eTQ" customClass="ChartLayout">
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="horizontalInset">

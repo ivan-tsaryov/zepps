@@ -25,8 +25,8 @@ NSInteger const kNumCount = 1000;
         self.dataArray = [[NSMutableArray alloc] init];
         
         for (int i = 0; i < kColCount; i++) {
-            //id num = [[NSNumber alloc] initWithUnsignedInteger: arc4random_uniform(kNumCount)];
-            id num = [[NSNumber alloc] initWithInt: i];
+            id num = [[NSNumber alloc] initWithUnsignedInteger: arc4random_uniform(kNumCount)];
+            //id num = [[NSNumber alloc] initWithInt: i];
             [self.dataArray addObject: num];
         }
     }
