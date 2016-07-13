@@ -9,7 +9,7 @@
 #import "ChartData.h"
 #import <stdlib.h>
 
-NSInteger const kColCount = 20;
+NSInteger const kColCount = 50;
 NSInteger const kNumCount = 1000;
 
 @interface ChartData ()
@@ -22,12 +22,12 @@ NSInteger const kNumCount = 1000;
 {
     self = [super init];
     if (self) {
-        self.chartData = [[NSMutableArray alloc] init];
+        self.dataArray = [[NSMutableArray alloc] init];
         
         for (int i = 0; i < kColCount; i++) {
-            id num = [[NSNumber alloc] initWithUnsignedInteger: arc4random_uniform(kNumCount)];
-            
-            [self.chartData addObject: num];
+            //id num = [[NSNumber alloc] initWithUnsignedInteger: arc4random_uniform(kNumCount)];
+            id num = [[NSNumber alloc] initWithInt: i];
+            [self.dataArray addObject: num];
         }
     }
     return self;
