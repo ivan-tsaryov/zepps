@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wGo-hx-V2O">
-                                <rect key="frame" x="0.0" y="223" width="320" height="266"/>
+                                <rect key="frame" x="0.0" y="196" width="320" height="372"/>
                                 <collectionViewLayout key="collectionViewLayout" id="wQe-fL-eTQ" customClass="ChartLayout">
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="horizontalInset">
@@ -38,25 +38,19 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </collectionViewLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="GtO-BE-o8u">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                             </collectionView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RGd-nl-Gcl">
+                                <rect key="frame" x="150" y="157" width="20" height="40"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wGo-hx-V2O" firstAttribute="top" secondItem="8EK-JA-zYf" secondAttribute="bottom" constant="203" id="CBX-m3-E8O"/>
+                            <constraint firstItem="wGo-hx-V2O" firstAttribute="top" secondItem="8EK-JA-zYf" secondAttribute="bottom" constant="176" id="CBX-m3-E8O"/>
                             <constraint firstAttribute="trailing" secondItem="wGo-hx-V2O" secondAttribute="trailing" id="U83-Yb-bbX"/>
                             <constraint firstItem="wGo-hx-V2O" firstAttribute="leading" secondItem="lXH-mG-oNJ" secondAttribute="leading" id="mRF-95-DVy"/>
-                            <constraint firstItem="NE8-sN-9iM" firstAttribute="top" secondItem="wGo-hx-V2O" secondAttribute="bottom" constant="79" id="yFA-aU-Gd8"/>
+                            <constraint firstItem="NE8-sN-9iM" firstAttribute="top" secondItem="wGo-hx-V2O" secondAttribute="bottom" id="yFA-aU-Gd8"/>
                         </constraints>
                     </view>
                     <connections>

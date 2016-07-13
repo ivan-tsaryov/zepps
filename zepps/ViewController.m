@@ -42,7 +42,7 @@
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [UIColor lightGrayColor];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
     [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
@@ -76,11 +76,15 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: cell.frame];
     
-    UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
-    titleLabel.transform= CGAffineTransformMakeRotation(-M_PI_2);
-    [titleLabel setText:cellData];
+    //UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
+    //titleLabel.transform= CGAffineTransformMakeRotation(-M_PI_2);
+    //[titleLabel setText:cellData];
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [self.collectionView scrollToItemAtIndexPath: indexPath atScrollPosition: UICollectionViewScrollPositionCenteredHorizontally animated: YES];
 }
 
 /*
