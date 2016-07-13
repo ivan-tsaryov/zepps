@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  zepps
 //
-//  Created by Иван Царев on 12.07.16.
+//  Created by Ivan Tsaryov on 12.07.16.
 //  Copyright © 2016 Ivan Tsaryov. All rights reserved.
 //
 
