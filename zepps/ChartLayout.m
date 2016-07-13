@@ -3,6 +3,7 @@
 #import "ChartLayout.h"
 
 #define kItemSize 20
+#define kXkoef 1
 
 @interface ChartLayout () {
     CGSize contentSize;
@@ -19,18 +20,29 @@
 }
 
 - (void)prepareLayout {
-    [super prepareLayout];
+    contentSize = CGSizeMake(kItemSize * self.numberOfItems*2, self.collectionView.frame.size.height);
+    
+    NSMutableArray *itemsAttr = [[NSMutableArray alloc] init];
+    NSInteger itemCount = [self.collectionView numberOfItemsInSection: 0];
+    NSIndexPath *indexPath;
+    
+    for (NSInteger item = 0; item < itemCount; item++) {
+        indexPath = [NSIndexPath indexPathForItem:item inSection: 0];
+        
+        UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+        attr.frame = CGRectMake(indexPath.row*kItemSize*kXkoef, 0, kItemSize, self.collectionView.bounds.size.height);
+        
+        [itemsAttr addObject: attr];
+    }
+    attributes = itemsAttr;
 }
 
 - (CGSize)collectionViewContentSize {
-    contentSize = CGSizeMake(kItemSize * self.numberOfItems*2, self.collectionView.frame.size.height);
     return contentSize;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-    attr.frame = CGRectMake(indexPath.row*kItemSize, 0, kItemSize, self.collectionView.bounds.size.height);
-    return attr;
+    return attributes[indexPath.row];
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {

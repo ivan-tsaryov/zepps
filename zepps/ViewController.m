@@ -33,52 +33,29 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self normalizeChart];
+}
+
 - (void)configureCollectionView {
     UINib *cellNib = [UINib nibWithNibName:@"NibCell" bundle:nil];
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor lightGrayColor];
     
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
     [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
-    [self.collectionView setPagingEnabled: true];
+    //[self.collectionView setPagingEnabled: true];
 
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    self.maxNumberInVisible = @0;
-    
-    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
-        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    [self normalizeChart];
+}
 
-        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
-
-        if ([num doubleValue] > [self.maxNumberInVisible doubleValue]) {
-            self.maxNumberInVisible = num;
-        }
-    }
-    
-    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
-        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-
-        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
-        
-        float percent = 100;
-        if (![self.maxNumberInVisible isEqual: @0]) {
-            float over = [num floatValue];
-            float to = [self.maxNumberInVisible floatValue];
-            percent = over/to;
-        }
-        //NSLog(@"%@", self.maxNumberInVisible);
-        NSLog(@"%@", num);
-        
-        [UIView animateWithDuration: 1.0f animations: ^{
-            cell.frame = [self getNewFrameWithOffsetY: percent oldFrame: cell.frame];
-        } completion:^(BOOL finished) {
-            
-        }];
-    }
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self normalizeChart];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -94,7 +71,7 @@
     
     static NSString *cellIdentifier = @"cvCell";
 
-    double yOffset = ([self.chartData.dataArray[indexPath.row] floatValue] / 1000);
+    double yOffset = ([self.chartData.dataArray[indexPath.row] floatValue] / kNumCount);
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     cell.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: cell.frame];
@@ -104,7 +81,6 @@
     [titleLabel setText:cellData];
     
     return cell;
-    
 }
 
 /*
@@ -117,6 +93,41 @@
     newFrame.origin.y = frameHeight-frameHeight*offset;
     
     return newFrame;
+}
+
+- (void)normalizeChart {
+    self.maxNumberInVisible = @0;
+    
+    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+        
+        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
+        
+        if ([num doubleValue] > [self.maxNumberInVisible doubleValue]) {
+            self.maxNumberInVisible = num;
+        }
+    }
+    
+    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
+        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+        
+        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
+        
+        float percent = 100;
+        if (![self.maxNumberInVisible isEqual: @0]) {
+            float over = [num floatValue];
+            float to = [self.maxNumberInVisible floatValue];
+            percent = over/to;
+        }
+        //NSLog(@"%@", self.maxNumberInVisible);
+        NSLog(@"%@", num);
+        
+        [UIView animateWithDuration: 0.3f animations: ^{
+            cell.frame = [self getNewFrameWithOffsetY: percent oldFrame: cell.frame];
+        } completion:^(BOOL finished) {
+            
+        }];
+    }
 }
 
 /*

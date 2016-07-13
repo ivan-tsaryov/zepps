@@ -10,7 +10,7 @@
 #import <stdlib.h>
 
 NSInteger const kColCount = 50;
-NSInteger const kNumCount = 1000;
+NSInteger const kNumCount = 10000;
 
 @interface ChartData ()
 
