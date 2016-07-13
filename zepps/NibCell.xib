@@ -14,32 +14,36 @@
                 <rect key="frame" x="0.0" y="0.0" width="176" height="419"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXs-p9-ABw" userLabel="Bar">
+                    <view tag="50" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hXs-p9-ABw" userLabel="Bar">
                         <rect key="frame" x="0.0" y="0.0" width="176" height="419"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7gi-uE-9qP" userLabel="Cap">
                                 <rect key="frame" x="0.0" y="0.0" width="176" height="2"/>
                                 <color key="backgroundColor" red="0.27843137254901962" green="0.70588235294117652" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="GaQ-km-tTJ"/>
+                                    <constraint firstAttribute="height" constant="2" id="j33-t0-Gfe"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529411766" green="0.96078431372549022" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="7gi-uE-9qP" firstAttribute="top" secondItem="hXs-p9-ABw" secondAttribute="top" id="4pv-o3-cUu"/>
-                            <constraint firstAttribute="trailing" secondItem="7gi-uE-9qP" secondAttribute="trailing" id="jXJ-Zv-9PZ"/>
-                            <constraint firstItem="7gi-uE-9qP" firstAttribute="leading" secondItem="hXs-p9-ABw" secondAttribute="leading" id="xxA-bE-2Pp"/>
+                            <constraint firstItem="7gi-uE-9qP" firstAttribute="leading" secondItem="hXs-p9-ABw" secondAttribute="leading" id="31k-NH-7Ak"/>
+                            <constraint firstAttribute="trailing" secondItem="7gi-uE-9qP" secondAttribute="trailing" id="g41-Xs-W2r"/>
+                            <constraint firstItem="7gi-uE-9qP" firstAttribute="top" secondItem="hXs-p9-ABw" secondAttribute="top" id="sah-wA-igl"/>
                         </constraints>
+                    </view>
+                    <view hidden="YES" alpha="0.20000000000000001" tag="30" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aSy-nY-iBi" userLabel="Selector">
+                        <rect key="frame" x="-212" y="-90" width="600" height="600"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
-                <constraint firstItem="hXs-p9-ABw" firstAttribute="leading" secondItem="EbD-bF-TNc" secondAttribute="leading" id="Fe4-XC-LLg"/>
-                <constraint firstItem="hXs-p9-ABw" firstAttribute="top" secondItem="EbD-bF-TNc" secondAttribute="top" id="Ii4-vL-3JS"/>
-                <constraint firstAttribute="bottom" secondItem="hXs-p9-ABw" secondAttribute="bottom" id="VG3-dI-pq5"/>
-                <constraint firstAttribute="trailing" secondItem="hXs-p9-ABw" secondAttribute="trailing" id="aY2-Bc-62I"/>
+                <constraint firstItem="hXs-p9-ABw" firstAttribute="leading" secondItem="EbD-bF-TNc" secondAttribute="leading" id="FJw-Br-AtG"/>
+                <constraint firstItem="hXs-p9-ABw" firstAttribute="top" secondItem="EbD-bF-TNc" secondAttribute="top" id="O0g-93-ZVP"/>
+                <constraint firstAttribute="trailing" secondItem="hXs-p9-ABw" secondAttribute="trailing" id="bF6-0l-jql"/>
+                <constraint firstAttribute="bottom" secondItem="hXs-p9-ABw" secondAttribute="bottom" id="nCL-ob-nHr"/>
             </constraints>
             <size key="customSize" width="176" height="419"/>
             <point key="canvasLocation" x="289" y="583.5"/>

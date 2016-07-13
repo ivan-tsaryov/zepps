@@ -74,7 +74,10 @@
     double yOffset = ([self.chartData.dataArray[indexPath.row] floatValue] / kNumCount);
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: cell.frame];
+    UIView *view = (UIView *) [cell viewWithTag: 50];
+    
+    view.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: view.frame];
+    //cell.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: cell.frame];
     
     //UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
     //titleLabel.transform= CGAffineTransformMakeRotation(-M_PI_2);
@@ -84,7 +87,17 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    UIView *view = (UIView *) [cell viewWithTag: 30];
+    view.hidden = false;
+    
     [self.collectionView scrollToItemAtIndexPath: indexPath atScrollPosition: UICollectionViewScrollPositionCenteredHorizontally animated: YES];
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    UIView *view = (UIView *) [cell viewWithTag: 30];
+    view.hidden = true;
 }
 
 /*
@@ -127,7 +140,9 @@
         NSLog(@"%@", num);
         
         [UIView animateWithDuration: 0.3f animations: ^{
-            cell.frame = [self getNewFrameWithOffsetY: percent oldFrame: cell.frame];
+            UIView *view = (UIView *) [cell viewWithTag: 50];
+            view.frame = [self getNewFrameWithOffsetY: percent oldFrame: view.frame];
+            //cell.frame = [self getNewFrameWithOffsetY: percent oldFrame: cell.frame];
         } completion:^(BOOL finished) {
             
         }];
