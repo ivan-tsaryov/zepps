@@ -10,28 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "zepps/ViewController.m"
-            timestampString = "490215455.385189"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "-scrollToSelectedCell:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "zepps/ViewController.m"
-            timestampString = "490215455.385189"
+            timestampString = "490219092.990144"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "81"
             endingLineNumber = "81"
-            landmarkName = "-scrollViewDidEndScrollingAnimation:"
+            landmarkName = "-collectionView:cellForItemAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "zepps/ViewController.m"
-            timestampString = "490215455.385189"
+            timestampString = "490219788.795034"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
-            landmarkName = "-scrollViewDidEndDragging:willDecelerate:"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "-normalizeChart"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,28 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "zepps/ViewController.m"
-            timestampString = "490215455.385189"
+            timestampString = "490219788.795034"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-scrollViewDidEndDecelerating:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "zepps/ViewController.m"
-            timestampString = "490215455.385189"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "-scrollToCenterCell"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "-normalizeChart"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

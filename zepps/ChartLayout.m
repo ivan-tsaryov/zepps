@@ -3,7 +3,6 @@
 #import "ChartLayout.h"
 
 #define kItemSize 20
-#define kXkoef 1
 
 @interface ChartLayout () {
     CGSize contentSize;
@@ -30,7 +29,7 @@
         indexPath = [NSIndexPath indexPathForItem:item inSection: 0];
         
         UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
-        attr.frame = CGRectMake(indexPath.row*kItemSize*kXkoef, 0, kItemSize, self.collectionView.bounds.size.height);
+        attr.frame = CGRectMake(indexPath.row*kItemSize, 0, kItemSize, self.collectionView.bounds.size.height);
         
         [itemsAttr addObject: attr];
     }

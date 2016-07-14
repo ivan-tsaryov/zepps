@@ -17,7 +17,6 @@
 		2C92FB1E1D3610FA00B813D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C92FB1C1D3610FA00B813D1 /* ViewController.m */; };
 		2C92FB211D3612FA00B813D1 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C92FB201D3612FA00B813D1 /* NibCell.xib */; };
 		2CBA4BC51D363B4900FB5BE0 /* ChartLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA4BC41D363B4900FB5BE0 /* ChartLayout.m */; };
-		2CBA4BC81D365DE400FB5BE0 /* Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA4BC71D365DE400FB5BE0 /* Extensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +37,6 @@
 		2C92FB201D3612FA00B813D1 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibCell.xib; sourceTree = "<group>"; };
 		2CBA4BC31D363B4900FB5BE0 /* ChartLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartLayout.h; sourceTree = "<group>"; };
 		2CBA4BC41D363B4900FB5BE0 /* ChartLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartLayout.m; sourceTree = "<group>"; };
-		2CBA4BC61D365DE400FB5BE0 /* Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Extensions.h; sourceTree = "<group>"; };
-		2CBA4BC71D365DE400FB5BE0 /* Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Extensions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,8 +83,6 @@
 				2C92FB201D3612FA00B813D1 /* NibCell.xib */,
 				2CBA4BC31D363B4900FB5BE0 /* ChartLayout.h */,
 				2CBA4BC41D363B4900FB5BE0 /* ChartLayout.m */,
-				2CBA4BC61D365DE400FB5BE0 /* Extensions.h */,
-				2CBA4BC71D365DE400FB5BE0 /* Extensions.m */,
 				2C7071361D379C1D008E7902 /* BubbleLine.h */,
 				2C7071371D379C1D008E7902 /* BubbleLine.m */,
 			);
@@ -176,7 +171,6 @@
 				2C1B1F111D35021A00E11A42 /* AppDelegate.m in Sources */,
 				2C1B1F251D35096E00E11A42 /* ChartData.m in Sources */,
 				2C92FB1E1D3610FA00B813D1 /* ViewController.m in Sources */,
-				2CBA4BC81D365DE400FB5BE0 /* Extensions.m in Sources */,
 				2C7071381D379C1D008E7902 /* BubbleLine.m in Sources */,
 				2C1B1F0E1D35021A00E11A42 /* main.m in Sources */,
 				2CBA4BC51D363B4900FB5BE0 /* ChartLayout.m in Sources */,

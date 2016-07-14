@@ -65,22 +65,6 @@
     [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self scrollToCenterCell];
-
-    [self normalizeChart];
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    [self scrollToCenterCell];
-    
-    [self normalizeChart];
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    [self normalizeChart];
-}
-
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
@@ -90,21 +74,14 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    NSString *cellData = [[self.chartData.dataArray objectAtIndex:indexPath.row] stringValue];
-    
     static NSString *cellIdentifier = @"cvCell";
-
-    double yOffset = ([self.chartData.dataArray[indexPath.row] floatValue] / kNumCount);
+    
+    float barHeightScale = ([self.chartData.dataArray[indexPath.row] floatValue] / kNumCount);
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
+    
     UIView *view = (UIView *) [cell viewWithTag: 50];
-    
-    view.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: view.frame];
-    
-//    UILabel *titleLabel = (UILabel *)[cell viewWithTag:60];
-//    titleLabel.transform= CGAffineTransformMakeRotation(-M_PI_2);
-//    [titleLabel setText: [NSString stringWithFormat: @"%.02f", yOffset]];
-//    [titleLabel setText: cellData];
+    view.frame = [self getNewFrameWithScale: barHeightScale basedOn: view.frame];
     
     return cell;
 }
@@ -114,16 +91,29 @@
     [self scrollToSelectedCell: cell];
     
     self.selectorView.hidden = false;
+    
+    self.numLabel.text = [self.chartData.dataArray[indexPath.row] stringValue];
 }
 
-/*
- Смещает ячейку в зависимости от offset (в процентах)
- */
-- (CGRect)getNewFrameWithOffsetY:(float)offset oldFrame:(CGRect)oldFrame {
-    CGRect newFrame = oldFrame;
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self scrollToCenterCell];
+    [self normalizeChart];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    [self scrollToCenterCell];
+    [self normalizeChart];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    [self normalizeChart];
+}
+
+- (CGRect)getNewFrameWithScale:(float)barHeightScale basedOn:(CGRect)baseFrame {
+    CGRect newFrame = baseFrame;
     float frameHeight = newFrame.size.height;
     
-    newFrame.origin.y = frameHeight-frameHeight*offset;
+    newFrame.origin.y = frameHeight-frameHeight*barHeightScale;
     
     return newFrame;
 }
@@ -136,42 +126,43 @@
 - (void)scrollToCenterCell {
     NSIndexPath *centerCellIndexPath = [self.collectionView indexPathForItemAtPoint: [self.view convertPoint:[self.view center] toView:self.collectionView]];
     
+    self.numLabel.text = [self.chartData.dataArray[centerCellIndexPath.row] stringValue];
+    
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:centerCellIndexPath];
     [self scrollToSelectedCell: cell];
 }
 
 - (void)normalizeChart {
+    NSNumber *maxNumber = [NSNumber numberWithInt: 0];
+    
     self.maxNumberInVisible = @0;
     
     for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
         
-        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
+        NSNumber *currentNumber = self.chartData.dataArray[indexPath.row];
         
-        if ([num doubleValue] > [self.maxNumberInVisible doubleValue]) {
-            self.maxNumberInVisible = num;
+        if ([currentNumber compare: maxNumber] == NSOrderedDescending) {
+            maxNumber = currentNumber;
         }
     }
-    
     for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
         
-        NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
+        NSNumber *currentNumber = self.chartData.dataArray[indexPath.row];
   
-        float percent = 1;
-        if (![self.maxNumberInVisible isEqual: @0]) {
-            float over = [num floatValue];
-            float to = [self.maxNumberInVisible floatValue];
-            percent = over/to;
+        float barHeightScale = 1;
+        if ([maxNumber compare: @0] == NSOrderedDescending) {
+            barHeightScale = [currentNumber floatValue]/[maxNumber floatValue];
         }
         
-        self.topLabel.text = [NSString stringWithFormat: @"%f", [self.maxNumberInVisible floatValue]*0.75];
-        self.middleLabel.text = [NSString stringWithFormat: @"%f", [self.maxNumberInVisible floatValue]*0.5];
-        self.bottomLabel.text = [NSString stringWithFormat: @"%f", [self.maxNumberInVisible floatValue]*0.25];
+        self.topLabel.text = [NSString stringWithFormat: @"%f", [maxNumber floatValue]*0.75];
+        self.middleLabel.text = [NSString stringWithFormat: @"%f", [maxNumber floatValue]*0.5];
+        self.bottomLabel.text = [NSString stringWithFormat: @"%f", [maxNumber floatValue]*0.25];
         
         [UIView animateWithDuration: 0.3f animations: ^{
             UIView *view = (UIView *) [cell viewWithTag: 50];
-            view.frame = [self getNewFrameWithOffsetY: percent oldFrame: view.frame];
+            view.frame = [self getNewFrameWithScale: barHeightScale basedOn: view.frame];
         } completion:^(BOOL finished) {
             
         }];
