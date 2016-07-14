@@ -11,9 +11,7 @@
 #import "ChartLayout.h"
 #import "BubbleLine.h"
 
-@interface ViewController () {
-    int visibleItemsCount;
-}
+@interface ViewController ()
 
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *selectorView;
@@ -44,15 +42,16 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    visibleItemsCount = self.collectionView.bounds.size.width/20;
-    
     BubbleLine *view = [[BubbleLine alloc] initWithFrame:self.upperView.bounds];
     view.backgroundColor = [UIColor clearColor];
     view.alpha = 0.1;
     
     [self.upperView addSubview:view];
     
+    [self scrollToCenterCell];
     [self normalizeChart];
+    
+    self.selectorView.hidden = false;
 }
 
 - (void)configureCollectionView {
@@ -67,19 +66,18 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    
-    NSIndexPath *centerCellIndexPath =
-    [self.collectionView indexPathForItemAtPoint:
-     [self.view convertPoint:[self.view center] toView:self.collectionView]];
-    [self.collectionView scrollToItemAtIndexPath: centerCellIndexPath atScrollPosition: UICollectionViewScrollPositionCenteredHorizontally animated: YES];
-    
+    [self scrollToCenterCell];
+
     [self normalizeChart];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    [self scrollToCenterCell];
     
+    [self normalizeChart];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
     [self normalizeChart];
 }
 
@@ -92,7 +90,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *cellData = [[self.chartData.dataArray objectAtIndex:indexPath.row] stringValue];
+//    NSString *cellData = [[self.chartData.dataArray objectAtIndex:indexPath.row] stringValue];
     
     static NSString *cellIdentifier = @"cvCell";
 
@@ -102,33 +100,20 @@
     UIView *view = (UIView *) [cell viewWithTag: 50];
     
     view.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: view.frame];
-    //cell.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: cell.frame];
     
 //    UILabel *titleLabel = (UILabel *)[cell viewWithTag:60];
 //    titleLabel.transform= CGAffineTransformMakeRotation(-M_PI_2);
-//    [titleLabel setText:cellData];
+//    [titleLabel setText: [NSString stringWithFormat: @"%.02f", yOffset]];
+//    [titleLabel setText: cellData];
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    //int inset = (int)(floor(visibleItemsCount/2) - indexPath.row+1)*20 ;
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath: indexPath];
+    [self scrollToSelectedCell: cell];
     
-    //self.collectionView.contentInset = UIEdgeInsetsMake(0, inset, 0, inset);
-    //UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
     self.selectorView.hidden = false;
-    NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
-    self.numLabel.text = [num stringValue];
-    
-    [self.collectionView scrollToItemAtIndexPath: indexPath atScrollPosition: UICollectionViewScrollPositionCenteredHorizontally animated: YES];
-    [self normalizeChart];
-    
-    //self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-}
-
--(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-//   self.selectorView.hidden = true;
 }
 
 /*
@@ -141,6 +126,18 @@
     newFrame.origin.y = frameHeight-frameHeight*offset;
     
     return newFrame;
+}
+
+- (void)scrollToSelectedCell:(UICollectionViewCell *)cell {
+    float inset = cell.frame.origin.x - self.collectionView.bounds.size.width/2 + 10;
+    [self.collectionView setContentOffset: CGPointMake(inset, 0) animated:YES];
+}
+
+- (void)scrollToCenterCell {
+    NSIndexPath *centerCellIndexPath = [self.collectionView indexPathForItemAtPoint: [self.view convertPoint:[self.view center] toView:self.collectionView]];
+    
+    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:centerCellIndexPath];
+    [self scrollToSelectedCell: cell];
 }
 
 - (void)normalizeChart {
@@ -160,15 +157,13 @@
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
         
         NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
-        
+  
         float percent = 1;
         if (![self.maxNumberInVisible isEqual: @0]) {
             float over = [num floatValue];
             float to = [self.maxNumberInVisible floatValue];
             percent = over/to;
         }
-        //NSLog(@"MAX NUMBER %@", self.maxNumberInVisible);
-        NSLog(@"%@", num);
         
         self.topLabel.text = [NSString stringWithFormat: @"%f", [self.maxNumberInVisible floatValue]*0.75];
         self.middleLabel.text = [NSString stringWithFormat: @"%f", [self.maxNumberInVisible floatValue]*0.5];
@@ -177,7 +172,6 @@
         [UIView animateWithDuration: 0.3f animations: ^{
             UIView *view = (UIView *) [cell viewWithTag: 50];
             view.frame = [self getNewFrameWithOffsetY: percent oldFrame: view.frame];
-            //cell.frame = [self getNewFrameWithOffsetY: percent oldFrame: cell.frame];
         } completion:^(BOOL finished) {
             
         }];

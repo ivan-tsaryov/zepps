@@ -14,5 +14,6 @@ extern NSInteger const kNumCount;
 @interface ChartData : NSObject
 
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property int maxNumber;
 
 @end

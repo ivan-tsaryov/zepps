@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wGo-hx-V2O">
+                            <collectionView multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wGo-hx-V2O">
                                 <rect key="frame" x="0.0" y="196" width="320" height="372"/>
                                 <collectionViewLayout key="collectionViewLayout" id="wQe-fL-eTQ" customClass="ChartLayout">
                                     <userDefinedRuntimeAttributes>
@@ -40,9 +40,12 @@
                                 </collectionViewLayout>
                                 <cells/>
                             </collectionView>
-                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AeT-0K-1tl" userLabel="Selector">
+                            <view hidden="YES" alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AeT-0K-1tl" userLabel="Selector">
                                 <rect key="frame" x="150" y="176" width="20" height="392"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="p8U-SS-JvD"/>
+                                </constraints>
                             </view>
                             <view alpha="0.10000000000000001" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KRt-Tr-c0J" userLabel="Top scale">
                                 <rect key="frame" x="49" y="289" width="271" height="2"/>
@@ -117,7 +120,10 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="SB7-tU-04F" secondAttribute="trailing" id="7k0-ji-gD8"/>
                             <constraint firstItem="wGo-hx-V2O" firstAttribute="top" secondItem="8EK-JA-zYf" secondAttribute="bottom" constant="176" id="CBX-m3-E8O"/>
+                            <constraint firstItem="AeT-0K-1tl" firstAttribute="top" secondItem="SB7-tU-04F" secondAttribute="bottom" constant="8" id="HgZ-m8-Qfa"/>
+                            <constraint firstItem="AeT-0K-1tl" firstAttribute="centerX" secondItem="lXH-mG-oNJ" secondAttribute="centerX" id="Jsk-0b-jux"/>
                             <constraint firstAttribute="trailing" secondItem="wGo-hx-V2O" secondAttribute="trailing" id="U83-Yb-bbX"/>
+                            <constraint firstItem="NE8-sN-9iM" firstAttribute="top" secondItem="AeT-0K-1tl" secondAttribute="bottom" id="Y62-pC-JKZ"/>
                             <constraint firstItem="SB7-tU-04F" firstAttribute="top" secondItem="lXH-mG-oNJ" secondAttribute="top" id="Yty-f6-adF"/>
                             <constraint firstItem="wGo-hx-V2O" firstAttribute="top" secondItem="SB7-tU-04F" secondAttribute="bottom" constant="28" id="lU1-iX-EhA"/>
                             <constraint firstItem="wGo-hx-V2O" firstAttribute="leading" secondItem="lXH-mG-oNJ" secondAttribute="leading" id="mRF-95-DVy"/>

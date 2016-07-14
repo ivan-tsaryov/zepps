@@ -21,7 +21,6 @@
 
 - (void)prepareLayout {
     contentSize = CGSizeMake(kItemSize * self.numberOfItems, self.collectionView.frame.size.height);
-
     
     NSMutableArray *itemsAttr = [[NSMutableArray alloc] init];
     NSInteger itemCount = [self.collectionView numberOfItemsInSection: 0];
@@ -54,5 +53,7 @@
         [attrs addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]]];
     return attrs;
 }
+
+
 
 @end

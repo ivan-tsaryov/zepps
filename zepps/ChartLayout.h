@@ -10,7 +10,7 @@
 
 @interface ChartLayout : UICollectionViewLayout
 
-@property (nonatomic, readonly) CGFloat horizontalInset;;
+@property (nonatomic, readonly) CGFloat horizontalInset;
 @property (nonatomic, readonly) CGFloat verticalInset;
 
 @property (nonatomic, readonly) CGFloat minimumItemWidth ;
