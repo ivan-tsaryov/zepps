@@ -13,6 +13,7 @@
 		2C1B1F191D35021A00E11A42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C1B1F181D35021A00E11A42 /* Assets.xcassets */; };
 		2C1B1F1C1D35021A00E11A42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1B1F1A1D35021A00E11A42 /* LaunchScreen.storyboard */; };
 		2C1B1F251D35096E00E11A42 /* ChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B1F241D35096E00E11A42 /* ChartData.m */; };
+		2C7071381D379C1D008E7902 /* BubbleLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7071371D379C1D008E7902 /* BubbleLine.m */; };
 		2C92FB1E1D3610FA00B813D1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C92FB1C1D3610FA00B813D1 /* ViewController.m */; };
 		2C92FB211D3612FA00B813D1 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C92FB201D3612FA00B813D1 /* NibCell.xib */; };
 		2CBA4BC51D363B4900FB5BE0 /* ChartLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CBA4BC41D363B4900FB5BE0 /* ChartLayout.m */; };
@@ -30,6 +31,8 @@
 		2C1B1F1D1D35021A00E11A42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C1B1F231D35096E00E11A42 /* ChartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChartData.h; sourceTree = "<group>"; };
 		2C1B1F241D35096E00E11A42 /* ChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChartData.m; sourceTree = "<group>"; };
+		2C7071361D379C1D008E7902 /* BubbleLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleLine.h; sourceTree = "<group>"; };
+		2C7071371D379C1D008E7902 /* BubbleLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleLine.m; sourceTree = "<group>"; };
 		2C92FB1B1D3610FA00B813D1 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2C92FB1C1D3610FA00B813D1 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2C92FB201D3612FA00B813D1 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NibCell.xib; sourceTree = "<group>"; };
@@ -85,6 +88,8 @@
 				2CBA4BC41D363B4900FB5BE0 /* ChartLayout.m */,
 				2CBA4BC61D365DE400FB5BE0 /* Extensions.h */,
 				2CBA4BC71D365DE400FB5BE0 /* Extensions.m */,
+				2C7071361D379C1D008E7902 /* BubbleLine.h */,
+				2C7071371D379C1D008E7902 /* BubbleLine.m */,
 			);
 			path = zepps;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				2C1B1F251D35096E00E11A42 /* ChartData.m in Sources */,
 				2C92FB1E1D3610FA00B813D1 /* ViewController.m in Sources */,
 				2CBA4BC81D365DE400FB5BE0 /* Extensions.m in Sources */,
+				2C7071381D379C1D008E7902 /* BubbleLine.m in Sources */,
 				2C1B1F0E1D35021A00E11A42 /* main.m in Sources */,
 				2CBA4BC51D363B4900FB5BE0 /* ChartLayout.m in Sources */,
 			);

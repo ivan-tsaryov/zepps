@@ -9,10 +9,20 @@
 #import "ViewController.h"
 #import "ChartData.h"
 #import "ChartLayout.h"
+#import "BubbleLine.h"
 
-@interface ViewController ()
+@interface ViewController () {
+    int visibleItemsCount;
+}
 
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIView *selectorView;
+@property (weak, nonatomic) IBOutlet UILabel *numLabel;
+@property (weak, nonatomic) IBOutlet UILabel *topLabel;
+@property (weak, nonatomic) IBOutlet UILabel *middleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *upperView;
 
 @property (nonatomic, strong) ChartData *chartData;
 @property (nonatomic, strong) NSNumber *maxNumberInVisible;
@@ -34,6 +44,14 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    visibleItemsCount = self.collectionView.bounds.size.width/20;
+    
+    BubbleLine *view = [[BubbleLine alloc] initWithFrame:self.upperView.bounds];
+    view.backgroundColor = [UIColor clearColor];
+    view.alpha = 0.1;
+    
+    [self.upperView addSubview:view];
+    
     [self normalizeChart];
 }
 
@@ -46,15 +64,22 @@
     
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
     [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
-    //[self.collectionView setPagingEnabled: true];
-
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
+    NSIndexPath *centerCellIndexPath =
+    [self.collectionView indexPathForItemAtPoint:
+     [self.view convertPoint:[self.view center] toView:self.collectionView]];
+    [self.collectionView scrollToItemAtIndexPath: centerCellIndexPath atScrollPosition: UICollectionViewScrollPositionCenteredHorizontally animated: YES];
+    
     [self normalizeChart];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    
     [self normalizeChart];
 }
 
@@ -79,25 +104,31 @@
     view.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: view.frame];
     //cell.frame = [self getNewFrameWithOffsetY: yOffset oldFrame: cell.frame];
     
-    //UILabel *titleLabel = (UILabel *)[cell viewWithTag:100];
-    //titleLabel.transform= CGAffineTransformMakeRotation(-M_PI_2);
-    //[titleLabel setText:cellData];
+//    UILabel *titleLabel = (UILabel *)[cell viewWithTag:60];
+//    titleLabel.transform= CGAffineTransformMakeRotation(-M_PI_2);
+//    [titleLabel setText:cellData];
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    UIView *view = (UIView *) [cell viewWithTag: 30];
-    view.hidden = false;
+    //int inset = (int)(floor(visibleItemsCount/2) - indexPath.row+1)*20 ;
+    
+    //self.collectionView.contentInset = UIEdgeInsetsMake(0, inset, 0, inset);
+    //UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+    self.selectorView.hidden = false;
+    NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
+    self.numLabel.text = [num stringValue];
     
     [self.collectionView scrollToItemAtIndexPath: indexPath atScrollPosition: UICollectionViewScrollPositionCenteredHorizontally animated: YES];
+    [self normalizeChart];
+    
+    //self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-    UIView *view = (UIView *) [cell viewWithTag: 30];
-    view.hidden = true;
+//    UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+//   self.selectorView.hidden = true;
 }
 
 /*
@@ -130,14 +161,18 @@
         
         NSNumber *num = [self.chartData.dataArray objectAtIndex:indexPath.row];
         
-        float percent = 100;
+        float percent = 1;
         if (![self.maxNumberInVisible isEqual: @0]) {
             float over = [num floatValue];
             float to = [self.maxNumberInVisible floatValue];
             percent = over/to;
         }
-        //NSLog(@"%@", self.maxNumberInVisible);
+        //NSLog(@"MAX NUMBER %@", self.maxNumberInVisible);
         NSLog(@"%@", num);
+        
+        self.topLabel.text = [NSString stringWithFormat: @"%f", [self.maxNumberInVisible floatValue]*0.75];
+        self.middleLabel.text = [NSString stringWithFormat: @"%f", [self.maxNumberInVisible floatValue]*0.5];
+        self.bottomLabel.text = [NSString stringWithFormat: @"%f", [self.maxNumberInVisible floatValue]*0.25];
         
         [UIView animateWithDuration: 0.3f animations: ^{
             UIView *view = (UIView *) [cell viewWithTag: 50];
