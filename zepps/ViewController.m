@@ -116,6 +116,7 @@
     [self normalizeChart];
 }
 
+
 - (CGRect)getNewFrameWithScale:(float)barHeightScale basedOn:(CGRect)baseFrame {
     CGRect newFrame = baseFrame;
     float frameHeight = newFrame.size.height;
