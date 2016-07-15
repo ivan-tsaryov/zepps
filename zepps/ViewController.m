@@ -156,9 +156,9 @@
             barHeightScale = [currentNumber floatValue]/[maxNumber floatValue];
         }
         
-        self.topLabel.text = [NSString stringWithFormat: @"%f", [maxNumber floatValue]*0.75];
-        self.middleLabel.text = [NSString stringWithFormat: @"%f", [maxNumber floatValue]*0.5];
-        self.bottomLabel.text = [NSString stringWithFormat: @"%f", [maxNumber floatValue]*0.25];
+        self.topLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.75]];
+        self.middleLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.5]];
+        self.bottomLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.25]];
         
         [UIView animateWithDuration: 0.3f animations: ^{
             UIView *view = (UIView *) [cell viewWithTag: 50];
@@ -167,6 +167,11 @@
             
         }];
     }
+}
+
+-(NSString *)getShortNameOfNumber:(NSNumber *)number {
+    long shortNumber = [number longValue]/1000;
+    return [NSString stringWithFormat: @"%li тыс.", shortNumber];
 }
 
 /*
