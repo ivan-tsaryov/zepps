@@ -9,8 +9,8 @@
 #import "ChartData.h"
 #import <stdlib.h>
 
-NSInteger const kColCount = 50;
-NSInteger const kNumCount = 100000;
+NSInteger const kColCount = 20000;
+NSInteger const kNumCount = 2000;
 
 @interface ChartData ()
 

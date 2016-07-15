@@ -177,6 +177,11 @@
 
 -(NSString *)getShortNameOfNumber:(NSNumber *)number {
     long shortNumber = [number longValue]/1000;
+    
+    if (shortNumber < 10) {
+        return [NSString stringWithFormat: @"%li", [number longValue]];
+    }
+    
     return [NSString stringWithFormat: @"%li тыс.", shortNumber];
 }
 
