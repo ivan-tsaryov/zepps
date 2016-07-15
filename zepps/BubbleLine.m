@@ -8,23 +8,80 @@
 
 #import "BubbleLine.h"
 
+@interface BubbleLine () {
+    CGFloat horizontalCenter;
+    CGFloat verticalCenter;
+}
+
+@end
+
 @implementation BubbleLine
 
+- (instancetype)initWithFrame:(CGRect)frame coordX:(CGFloat)x coordY:(CGFloat)y {
+    self = [super initWithFrame:frame];
+    if (self) {
+        horizontalCenter = x;
+        verticalCenter = y;
+    }
+    return self;
+}
+
 - (void)drawRect:(CGRect)rect {
-    UIBezierPath *path = [UIBezierPath bezierPath];
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextSetLineWidth(ctx, 2);
     
-    float startPositionX = rect.origin.x;
-    float endPositionX = rect.size.width;
-    float middlePositionX = rect.size.width/2;
+    [self fillLineWithContext:ctx];
+    [self drawTriangleWithContext:ctx];
+    [self drawStrokeWithContext:ctx];
+}
+
+/*
+    Закрашивание всей линии белым цветом
+ */
+-(void)fillLineWithContext:(CGContextRef)ctx {
+    CGContextSetAlpha(ctx, 1);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
     
-    [path moveToPoint:CGPointMake(startPositionX, 150.0)];
-    [path addLineToPoint:CGPointMake(middlePositionX - 10, 150.0)];
-    [path addLineToPoint:CGPointMake(middlePositionX, 160.0)];
-    [path addLineToPoint:CGPointMake(middlePositionX + 10, 150.0)];
-    [path addLineToPoint:CGPointMake(endPositionX, 150.0)];
-    path.lineWidth = 2;
-    [[UIColor blackColor] setStroke];
-    [path stroke];
+    CGContextBeginPath(ctx);
+    CGContextMoveToPoint(ctx, 0, verticalCenter);
+    CGContextAddLineToPoint(ctx, horizontalCenter * 2, verticalCenter);
+    
+    CGContextDrawPath(ctx, kCGPathStroke);
+}
+
+/*
+    Рисование белого треугольника в  центре линии
+ */
+-(void)drawTriangleWithContext:(CGContextRef)ctx {
+    CGColorRef whiteColor = [UIColor whiteColor].CGColor;
+    CGContextSetAlpha(ctx, 1);
+    CGContextSetFillColorWithColor(ctx, whiteColor);
+    CGContextSetStrokeColorWithColor(ctx, whiteColor);
+    
+    CGContextBeginPath(ctx);
+    CGContextMoveToPoint(ctx, horizontalCenter - 10, verticalCenter);
+    CGContextAddLineToPoint(ctx, horizontalCenter, verticalCenter + 10);
+    CGContextAddLineToPoint(ctx, horizontalCenter + 10, verticalCenter);
+    CGContextClosePath(ctx);
+    
+    CGContextDrawPath(ctx,kCGPathFillStroke);
+}
+
+/*
+    Рисование изогнутой в центре линии
+ */
+-(void)drawStrokeWithContext:(CGContextRef)ctx {
+    CGContextSetAlpha(ctx, 0.2);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+    
+    CGContextBeginPath(ctx);
+    CGContextMoveToPoint(ctx, 0, verticalCenter);
+    CGContextAddLineToPoint(ctx, horizontalCenter - 10, verticalCenter);
+    CGContextAddLineToPoint(ctx, horizontalCenter, verticalCenter + 10);
+    CGContextAddLineToPoint(ctx, horizontalCenter + 10, verticalCenter);
+    CGContextAddLineToPoint(ctx, horizontalCenter * 2, verticalCenter);
+
+    CGContextDrawPath(ctx, kCGPathStroke);
 }
 
 @end

@@ -10,4 +10,6 @@
 
 @interface BubbleLine : UIView
 
+- (instancetype)initWithFrame:(CGRect)frame coordX:(CGFloat)x coordY:(CGFloat)y;
+
 @end

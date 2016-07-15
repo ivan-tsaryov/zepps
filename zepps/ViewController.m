@@ -15,15 +15,16 @@
 
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *selectorView;
-@property (weak, nonatomic) IBOutlet UILabel *numLabel;
-@property (weak, nonatomic) IBOutlet UILabel *topLabel;
-@property (weak, nonatomic) IBOutlet UILabel *middleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *bottomLabel;
 
-@property (weak, nonatomic) IBOutlet UIView *upperView;
+@property (weak, nonatomic) IBOutlet UILabel *barNumberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *eightyPercentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sixtyPercentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *fortyPercentLabel;
+@property (weak, nonatomic) IBOutlet UILabel *twentyPercentLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *line;
 
 @property (nonatomic, strong) ChartData *chartData;
-@property (nonatomic, strong) NSNumber *maxNumberInVisible;
 
 @end
 
@@ -42,11 +43,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    BubbleLine *view = [[BubbleLine alloc] initWithFrame:self.upperView.bounds];
-    view.backgroundColor = [UIColor clearColor];
-    view.alpha = 0.1;
-    
-    [self.upperView addSubview:view];
+    [self drawBubbleLine];
     
     [self scrollToCenterCell];
     [self normalizeChart];
@@ -63,6 +60,16 @@
     
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
     [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
+}
+
+- (void)drawBubbleLine {
+    BubbleLine *view = [[BubbleLine alloc] initWithFrame:self.view.bounds
+                                                  coordX:self.line.frame.size.width/2
+                                                  coordY:self.line.frame.origin.y + 1
+                        ];
+    view.userInteractionEnabled = NO;
+    view.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:view];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -92,7 +99,7 @@
     
     self.selectorView.hidden = false;
     
-    self.numLabel.text = [self.chartData.dataArray[indexPath.row] stringValue];
+    self.barNumberLabel.text = [self.chartData.dataArray[indexPath.row] stringValue];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -126,7 +133,7 @@
 - (void)scrollToCenterCell {
     NSIndexPath *centerCellIndexPath = [self.collectionView indexPathForItemAtPoint: [self.view convertPoint:[self.view center] toView:self.collectionView]];
     
-    self.numLabel.text = [self.chartData.dataArray[centerCellIndexPath.row] stringValue];
+    self.barNumberLabel.text = [self.chartData.dataArray[centerCellIndexPath.row] stringValue];
     
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:centerCellIndexPath];
     [self scrollToSelectedCell: cell];
@@ -134,8 +141,6 @@
 
 - (void)normalizeChart {
     NSNumber *maxNumber = [NSNumber numberWithInt: 0];
-    
-    self.maxNumberInVisible = @0;
     
     for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
@@ -156,9 +161,10 @@
             barHeightScale = [currentNumber floatValue]/[maxNumber floatValue];
         }
         
-        self.topLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.75]];
-        self.middleLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.5]];
-        self.bottomLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.25]];
+        self.eightyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.8]];
+        self.sixtyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.6]];
+        self.fortyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.4]];
+        self.twentyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.2]];
         
         [UIView animateWithDuration: 0.3f animations: ^{
             UIView *view = (UIView *) [cell viewWithTag: 50];
