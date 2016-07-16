@@ -21,10 +21,10 @@ NSInteger const kNumCount = 100000;
 - (instancetype)init {
     self = [super init];
     if (self) {
-        self.dataArray = [[NSMutableArray alloc] init];
+        self.data = [[NSMutableArray alloc] init];
         
         for (int i = 0; i < kColCount; i++) {
-            [self.dataArray addObject: [self randomNumberBetween: 0 maxNumber: kNumCount]];
+            [self.data addObject: [self randomNumberBetween: 0 maxNumber: kNumCount]];
         }
     }
     return self;

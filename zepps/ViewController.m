@@ -14,15 +14,15 @@
 @interface ViewController ()
 
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
+
 @property (weak, nonatomic) IBOutlet UIView *selectorView;
+@property (weak, nonatomic) IBOutlet UIView *line;
 
 @property (weak, nonatomic) IBOutlet UILabel *barNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eightyPercentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sixtyPercentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *fortyPercentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *twentyPercentLabel;
-
-@property (weak, nonatomic) IBOutlet UIView *line;
 
 @property (nonatomic, strong) ChartData *chartData;
 
@@ -48,7 +48,7 @@
     [self scrollToCenterCell];
     [self normalizeChart];
     
-    self.selectorView.hidden = false;
+    self.selectorView.hidden = NO;
 }
 
 - (void)configureCollectionView {
@@ -77,13 +77,13 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [self.chartData.dataArray count];
+    return [self.chartData.data count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"cvCell";
     
-    float barHeightScale = ([self.chartData.dataArray[indexPath.row] floatValue] / kNumCount);
+    float barHeightScale = ([self.chartData.data[indexPath.row] floatValue] / kNumCount);
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
@@ -99,7 +99,7 @@
     
     self.selectorView.hidden = false;
     
-    self.barNumberLabel.text = [self.chartData.dataArray[indexPath.row] stringValue];
+    self.barNumberLabel.text = [self.chartData.data[indexPath.row] stringValue];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
@@ -127,14 +127,14 @@
 }
 
 - (void)scrollToSelectedCell:(UICollectionViewCell *)cell {
-    float inset = cell.frame.origin.x - self.collectionView.bounds.size.width/2 + 10;
+    float inset = cell.frame.origin.x - self.collectionView.bounds.size.width/2 + kItemSize/2;
     [self.collectionView setContentOffset: CGPointMake(inset, 0) animated:YES];
 }
 
 - (void)scrollToCenterCell {
     NSIndexPath *centerCellIndexPath = [self.collectionView indexPathForItemAtPoint: [self.view convertPoint:[self.view center] toView:self.collectionView]];
     
-    self.barNumberLabel.text = [self.chartData.dataArray[centerCellIndexPath.row] stringValue];
+    self.barNumberLabel.text = [self.chartData.data[centerCellIndexPath.row] stringValue];
     
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:centerCellIndexPath];
     [self scrollToSelectedCell: cell];
@@ -146,7 +146,7 @@
     for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
         
-        NSNumber *currentNumber = self.chartData.dataArray[indexPath.row];
+        NSNumber *currentNumber = self.chartData.data[indexPath.row];
         
         if ([currentNumber compare: maxNumber] == NSOrderedDescending) {
             maxNumber = currentNumber;
@@ -155,25 +155,28 @@
     for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
         
-        NSNumber *currentNumber = self.chartData.dataArray[indexPath.row];
+        NSNumber *currentNumber = self.chartData.data[indexPath.row];
   
         float barHeightScale = 1;
         if ([maxNumber compare: @0] == NSOrderedDescending) {
             barHeightScale = [currentNumber floatValue]/[maxNumber floatValue];
         }
         
-        self.eightyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.8]];
-        self.sixtyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.6]];
-        self.fortyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.4]];
-        self.twentyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.2]];
-        
         [UIView animateWithDuration: 0.3f animations: ^{
             UIView *view = (UIView *) [cell viewWithTag: 50];
             view.frame = [self getNewFrameWithScale: barHeightScale basedOn: view.frame];
-        } completion:^(BOOL finished) {
             
+        } completion:^(BOOL finished) {
+           [self updateScaleDataWithMax:maxNumber];
         }];
     }
+}
+
+-(void)updateScaleDataWithMax:(NSNumber*)maxNumber {
+    self.eightyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.8]];
+    self.sixtyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.6]];
+    self.fortyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.4]];
+    self.twentyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.2]];
 }
 
 -(NSString *)getShortNameOfNumber:(NSNumber *)number {

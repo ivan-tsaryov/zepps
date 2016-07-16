@@ -8,6 +8,8 @@
 
 #import "BubbleLine.h"
 
+#define kItemSize 20
+
 @interface BubbleLine () {
     CGFloat horizontalCenter;
     CGFloat verticalCenter;
@@ -59,9 +61,9 @@
     CGContextSetStrokeColorWithColor(ctx, whiteColor);
     
     CGContextBeginPath(ctx);
-    CGContextMoveToPoint(ctx, horizontalCenter - 10, verticalCenter);
-    CGContextAddLineToPoint(ctx, horizontalCenter, verticalCenter + 10);
-    CGContextAddLineToPoint(ctx, horizontalCenter + 10, verticalCenter);
+    CGContextMoveToPoint(ctx, horizontalCenter - kItemSize/2, verticalCenter);
+    CGContextAddLineToPoint(ctx, horizontalCenter, verticalCenter + kItemSize/2);
+    CGContextAddLineToPoint(ctx, horizontalCenter + kItemSize/2, verticalCenter);
     CGContextClosePath(ctx);
     
     CGContextDrawPath(ctx,kCGPathFillStroke);
@@ -76,9 +78,9 @@
     
     CGContextBeginPath(ctx);
     CGContextMoveToPoint(ctx, 0, verticalCenter);
-    CGContextAddLineToPoint(ctx, horizontalCenter - 10, verticalCenter);
-    CGContextAddLineToPoint(ctx, horizontalCenter, verticalCenter + 10);
-    CGContextAddLineToPoint(ctx, horizontalCenter + 10, verticalCenter);
+    CGContextAddLineToPoint(ctx, horizontalCenter - kItemSize/2, verticalCenter);
+    CGContextAddLineToPoint(ctx, horizontalCenter, verticalCenter + kItemSize/2);
+    CGContextAddLineToPoint(ctx, horizontalCenter + kItemSize/2, verticalCenter);
     CGContextAddLineToPoint(ctx, horizontalCenter * 2, verticalCenter);
 
     CGContextDrawPath(ctx, kCGPathStroke);

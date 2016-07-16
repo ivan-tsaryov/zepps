@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSInteger const kItemSize;
+
 @interface ChartLayout : UICollectionViewLayout
 
 @property (nonatomic, readonly) CGFloat horizontalInset;

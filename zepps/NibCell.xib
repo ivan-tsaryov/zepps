@@ -32,10 +32,6 @@
                             <constraint firstItem="7gi-uE-9qP" firstAttribute="top" secondItem="hXs-p9-ABw" secondAttribute="top" id="sah-wA-igl"/>
                         </constraints>
                     </view>
-                    <view hidden="YES" alpha="0.10000000000000001" tag="30" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aSy-nY-iBi" userLabel="Selector">
-                        <rect key="frame" x="-214" y="-90" width="600" height="600"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>

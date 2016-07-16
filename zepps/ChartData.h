@@ -13,6 +13,6 @@ extern NSInteger const kNumCount;
 
 @interface ChartData : NSObject
 
-@property (nonatomic, strong) NSMutableArray<NSNumber *> *dataArray;
+@property (nonatomic, strong) NSMutableArray<NSNumber *> *data;
 
 @end
