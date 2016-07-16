@@ -97,7 +97,7 @@
     UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath: indexPath];
     [self scrollToSelectedCell: cell];
     
-    self.selectorView.hidden = false;
+    self.selectorView.hidden = NO;
     
     self.barNumberLabel.text = [self.chartData.data[indexPath.row] stringValue];
 }
@@ -121,13 +121,13 @@
     CGRect newFrame = baseFrame;
     float frameHeight = newFrame.size.height;
     
-    newFrame.origin.y = frameHeight-frameHeight*barHeightScale;
+    newFrame.origin.y = frameHeight - frameHeight * barHeightScale;
     
     return newFrame;
 }
 
 - (void)scrollToSelectedCell:(UICollectionViewCell *)cell {
-    float inset = cell.frame.origin.x - self.collectionView.bounds.size.width/2 + kItemSize/2;
+    float inset = cell.frame.origin.x - self.collectionView.bounds.size.width / 2 + kItemSize / 2;
     [self.collectionView setContentOffset: CGPointMake(inset, 0) animated:YES];
 }
 
