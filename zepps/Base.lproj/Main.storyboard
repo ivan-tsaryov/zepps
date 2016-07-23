@@ -34,9 +34,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="144"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="r5R-jC-6Vu" userLabel="Количество">
-                                                <rect key="frame" x="0.0" y="45" width="320" height="24"/>
+                                                <rect key="frame" x="0.0" y="60" width="320" height="24"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="24" id="bIi-O8-lvm"/>
+                                                    <constraint firstAttribute="height" constant="24" id="lYk-OX-fRg"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,7 +45,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Показов рекламы" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="25L-H5-KLa" userLabel="Информация">
                                                 <rect key="frame" x="0.0" y="94" width="320" height="21"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="21" id="yN4-pt-D9M"/>
+                                                    <constraint firstAttribute="height" constant="21" id="guc-vc-D5D"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -54,12 +54,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="r5R-jC-6Vu" firstAttribute="centerY" secondItem="25L-H5-KLa" secondAttribute="top" multiplier="0.5" constant="10" id="6jR-UB-SNe"/>
-                                            <constraint firstItem="25L-H5-KLa" firstAttribute="leading" secondItem="hDS-qy-8Ql" secondAttribute="leading" id="kJL-db-27q"/>
-                                            <constraint firstItem="r5R-jC-6Vu" firstAttribute="leading" secondItem="hDS-qy-8Ql" secondAttribute="leading" id="pHk-CY-kUN"/>
-                                            <constraint firstAttribute="trailing" secondItem="r5R-jC-6Vu" secondAttribute="trailing" id="r3t-E6-DHc"/>
-                                            <constraint firstAttribute="trailing" secondItem="25L-H5-KLa" secondAttribute="trailing" id="uPo-5Z-r9p"/>
-                                            <constraint firstItem="25L-H5-KLa" firstAttribute="bottom" secondItem="hDS-qy-8Ql" secondAttribute="bottom" multiplier="0.8" id="yOu-3q-gTt"/>
+                                            <constraint firstAttribute="trailing" secondItem="25L-H5-KLa" secondAttribute="trailing" id="0tN-cx-WTN"/>
+                                            <constraint firstItem="25L-H5-KLa" firstAttribute="leading" secondItem="hDS-qy-8Ql" secondAttribute="leading" id="F3H-Jc-pcN"/>
+                                            <constraint firstItem="r5R-jC-6Vu" firstAttribute="centerY" secondItem="hDS-qy-8Ql" secondAttribute="centerY" id="PVx-8d-4EH"/>
+                                            <constraint firstAttribute="trailing" secondItem="r5R-jC-6Vu" secondAttribute="trailing" id="Vi5-VW-yym"/>
+                                            <constraint firstItem="25L-H5-KLa" firstAttribute="top" secondItem="r5R-jC-6Vu" secondAttribute="bottom" constant="10" id="bSB-ML-YPt"/>
+                                            <constraint firstItem="r5R-jC-6Vu" firstAttribute="leading" secondItem="hDS-qy-8Ql" secondAttribute="leading" id="xNK-Q6-hRQ"/>
                                         </constraints>
                                     </view>
                                     <view alpha="0.20000000000000001" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ndr-IH-I19" userLabel="Нижняя линия">
