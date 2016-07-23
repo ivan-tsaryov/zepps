@@ -10,6 +10,10 @@
 #import "ChartData.h"
 #import "ChartLayout.h"
 #import "BubbleLine.h"
+#import "CViewCell.h"
+#import "NSNCategory.h"
+
+NSString * const cellIdentifier = @"cvCell";
 
 @interface ViewController ()
 
@@ -45,7 +49,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self drawBubbleLine];
+    //[self drawBubbleLine];
     
     [self scrollToCenterCell];
     [self normalizeChart];
@@ -54,13 +58,13 @@
 }
 
 - (void)configureCollectionView {
-    UINib *cellNib = [UINib nibWithNibName:@"NibCell" bundle:nil];
+    UINib *cellNib = [UINib nibWithNibName:@"NibCell" bundle:[NSBundle mainBundle]];
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     self.collectionView.backgroundColor = [UIColor whiteColor];
     
-    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"cvCell"];
+    [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:cellIdentifier];
     [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
 }
 
@@ -83,22 +87,17 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"cvCell";
     
-    float barHeightScale = ([self.chartData.data[indexPath.row] floatValue] / kNumCount);
+    CViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    
-    
-    // отказаться от тегов. Использовать проперти и IBOUTLET
-    UIView *view = (UIView *) [cell viewWithTag: 50];
-    view.frame = [self getNewFrameWithScale: barHeightScale basedOn: view.frame];
+    cell.barHeightScale = ([self.chartData.data[indexPath.row] floatValue] / kNumCount);
+    [cell updateCellFrame];
     
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath: indexPath];
+    CViewCell *cell = (CViewCell *)[collectionView cellForItemAtIndexPath: indexPath];
     [self scrollToSelectedCell: cell];
     
     self.selectorView.hidden = NO;
@@ -120,16 +119,6 @@
     [self normalizeChart];
 }
 
-
-- (CGRect)getNewFrameWithScale:(float)barHeightScale basedOn:(CGRect)baseFrame {
-    CGRect newFrame = baseFrame;
-    float frameHeight = newFrame.size.height;
-    
-    newFrame.origin.y = frameHeight - frameHeight * barHeightScale;
-    
-    return newFrame;
-}
-
 - (void)scrollToSelectedCell:(UICollectionViewCell *)cell {
     float inset = cell.frame.origin.x - self.collectionView.bounds.size.width / 2 + kItemSize / 2;
     [self.collectionView setContentOffset: CGPointMake(inset, 0) animated:YES];
@@ -140,35 +129,31 @@
     
     self.barNumberLabel.text = [self.chartData.data[centerCellIndexPath.row] stringValue];
     
-    UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:centerCellIndexPath];
+    CViewCell *cell = (CViewCell *)[self.collectionView cellForItemAtIndexPath:centerCellIndexPath];
     [self scrollToSelectedCell: cell];
 }
 
 - (void)normalizeChart {
     NSNumber *maxNumber = [NSNumber numberWithInt: 0];
     
-    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
+    for (CViewCell *cell in [self.collectionView visibleCells]) {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-        
         NSNumber *currentNumber = self.chartData.data[indexPath.row];
         
         if ([currentNumber compare: maxNumber] == NSOrderedDescending) {
             maxNumber = currentNumber;
         }
     }
-    for (UICollectionViewCell *cell in [self.collectionView visibleCells]) {
+    for (CViewCell *cell in [self.collectionView visibleCells]) {
         NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-        
         NSNumber *currentNumber = self.chartData.data[indexPath.row];
   
-        float barHeightScale = 1;
         if ([maxNumber compare: @0] == NSOrderedDescending) {
-            barHeightScale = [currentNumber floatValue]/[maxNumber floatValue];
+            cell.barHeightScale = [currentNumber floatValue]/[maxNumber floatValue];
         }
         
         [UIView animateWithDuration: 0.3f animations: ^{
-            UIView *view = (UIView *) [cell viewWithTag: 50];
-            view.frame = [self getNewFrameWithScale: barHeightScale basedOn: view.frame];
+            [cell updateCellFrame];
             
         } completion:^(BOOL finished) {
            [self updateScaleDataWithMax:maxNumber];
@@ -177,22 +162,10 @@
 }
 
 -(void)updateScaleDataWithMax:(NSNumber*)maxNumber {
-    self.eightyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.8]];
-    self.sixtyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.6]];
-    self.fortyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.4]];
-    self.twentyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.2]];
-}
-
-
-// Вынести в категорию для класса NSNumber
--(NSString *)getShortNameOfNumber:(NSNumber *)number {
-    long shortNumber = [number longValue]/1000;
-    
-    if (shortNumber < 10) {
-        return [NSString stringWithFormat: @"%li", [number longValue]];
-    }
-    
-    return [NSString stringWithFormat: @"%li тыс.", shortNumber];
+    self.eightyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.8] getScaleFormattedString];
+    self.sixtyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.6] getScaleFormattedString];
+    self.fortyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.4] getScaleFormattedString];
+    self.twentyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.2] getScaleFormattedString];
 }
 
 /*

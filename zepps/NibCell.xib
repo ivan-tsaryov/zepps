@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="EbD-bF-TNc">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cvCell" id="EbD-bF-TNc" customClass="CViewCell">
             <rect key="frame" x="0.0" y="0.0" width="176" height="419"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -42,6 +42,9 @@
                 <constraint firstAttribute="bottom" secondItem="hXs-p9-ABw" secondAttribute="bottom" id="nCL-ob-nHr"/>
             </constraints>
             <size key="customSize" width="176" height="419"/>
+            <connections>
+                <outlet property="cellBar" destination="hXs-p9-ABw" id="se1-Eq-bo5"/>
+            </connections>
             <point key="canvasLocation" x="289" y="583.5"/>
         </collectionViewCell>
     </objects>

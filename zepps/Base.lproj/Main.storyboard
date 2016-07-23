@@ -62,9 +62,9 @@
                                             <constraint firstItem="r5R-jC-6Vu" firstAttribute="leading" secondItem="hDS-qy-8Ql" secondAttribute="leading" id="xNK-Q6-hRQ"/>
                                         </constraints>
                                     </view>
-                                    <view alpha="0.20000000000000001" tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ndr-IH-I19" userLabel="Нижняя линия">
+                                    <view tag="10" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ndr-IH-I19" userLabel="Нижняя линия">
                                         <rect key="frame" x="0.0" y="197" width="320" height="2"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="lz9-VF-oZ3"/>
@@ -218,13 +218,16 @@
                                     <constraint firstItem="KRt-Tr-c0J" firstAttribute="bottom" secondItem="CiA-UX-pZq" secondAttribute="bottom" multiplier="0.8" id="zLB-Ux-cGR"/>
                                 </constraints>
                             </view>
-                            <view hidden="YES" alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AeT-0K-1tl" userLabel="Selector">
+                            <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AeT-0K-1tl" userLabel="Selector">
                                 <rect key="frame" x="150" y="199" width="20" height="369"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.90588235294117647" green="0.90588235294117647" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="I2h-yd-wVt"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Triangle" translatesAutoresizingMaskIntoConstraints="NO" id="O60-Dz-VVs">
+                                <rect key="frame" x="150" y="197" width="20" height="12"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
@@ -258,4 +261,7 @@
             <point key="canvasLocation" x="186" y="251"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Triangle" width="83" height="49"/>
+    </resources>
 </document>

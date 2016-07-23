@@ -4,11 +4,10 @@
 
 NSInteger const kItemSize = 20;
 
-@interface ChartLayout () {
-    // property
-    CGSize contentSize;
-    NSArray *attributes;
-}
+@interface ChartLayout ()
+
+@property CGSize contentSize;
+@property (strong, nonatomic) NSArray *attributes;
 
 @end
 
@@ -20,7 +19,7 @@ NSInteger const kItemSize = 20;
 }
 
 - (void)prepareLayout {
-    contentSize = CGSizeMake(kItemSize * self.numberOfItems, self.collectionView.frame.size.height);
+    self.contentSize = CGSizeMake(kItemSize * self.numberOfItems, self.collectionView.frame.size.height);
     
     NSMutableArray *itemsAttr = [[NSMutableArray alloc] init];
     NSInteger itemCount = [self.collectionView numberOfItemsInSection: 0];
@@ -34,15 +33,15 @@ NSInteger const kItemSize = 20;
         
         [itemsAttr addObject: attr];
     }
-    attributes = itemsAttr;
+    self.attributes = itemsAttr;
 }
 
 - (CGSize)collectionViewContentSize {
-    return contentSize;
+    return self.contentSize;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return attributes[indexPath.row];
+    return self.attributes[indexPath.row];
 }
 
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect {
@@ -53,7 +52,5 @@ NSInteger const kItemSize = 20;
         [attrs addObject:[self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForItem:i inSection:0]]];
     return attrs;
 }
-
-
 
 @end

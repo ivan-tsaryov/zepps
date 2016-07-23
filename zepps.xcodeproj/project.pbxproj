@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C07367B1D436862005E08D6 /* CViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C07367A1D436862005E08D6 /* CViewCell.m */; };
+		2C07368A1D438F21005E08D6 /* NSNCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0736891D438F21005E08D6 /* NSNCategory.m */; };
 		2C1B1F0E1D35021A00E11A42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B1F0D1D35021A00E11A42 /* main.m */; };
 		2C1B1F111D35021A00E11A42 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B1F101D35021A00E11A42 /* AppDelegate.m */; };
 		2C1B1F171D35021A00E11A42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C1B1F151D35021A00E11A42 /* Main.storyboard */; };
@@ -20,6 +22,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C0736791D436862005E08D6 /* CViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CViewCell.h; sourceTree = "<group>"; };
+		2C07367A1D436862005E08D6 /* CViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CViewCell.m; sourceTree = "<group>"; };
+		2C0736881D438F21005E08D6 /* NSNCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNCategory.h; sourceTree = "<group>"; };
+		2C0736891D438F21005E08D6 /* NSNCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNCategory.m; sourceTree = "<group>"; };
 		2C1B1F091D35021A00E11A42 /* zepps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zepps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C1B1F0D1D35021A00E11A42 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2C1B1F0F1D35021A00E11A42 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -85,6 +91,10 @@
 				2CBA4BC41D363B4900FB5BE0 /* ChartLayout.m */,
 				2C7071361D379C1D008E7902 /* BubbleLine.h */,
 				2C7071371D379C1D008E7902 /* BubbleLine.m */,
+				2C0736791D436862005E08D6 /* CViewCell.h */,
+				2C07367A1D436862005E08D6 /* CViewCell.m */,
+				2C0736881D438F21005E08D6 /* NSNCategory.h */,
+				2C0736891D438F21005E08D6 /* NSNCategory.m */,
 			);
 			path = zepps;
 			sourceTree = "<group>";
@@ -168,10 +178,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C07367B1D436862005E08D6 /* CViewCell.m in Sources */,
 				2C1B1F111D35021A00E11A42 /* AppDelegate.m in Sources */,
 				2C1B1F251D35096E00E11A42 /* ChartData.m in Sources */,
 				2C92FB1E1D3610FA00B813D1 /* ViewController.m in Sources */,
 				2C7071381D379C1D008E7902 /* BubbleLine.m in Sources */,
+				2C07368A1D438F21005E08D6 /* NSNCategory.m in Sources */,
 				2C1B1F0E1D35021A00E11A42 /* main.m in Sources */,
 				2CBA4BC51D363B4900FB5BE0 /* ChartLayout.m in Sources */,
 			);
