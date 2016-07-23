@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "ChartData.h"
 #import "ChartLayout.h"
-#import "BubbleLine.h"
 #import "CViewCell.h"
 #import "NSNCategory.h"
 
@@ -49,8 +48,6 @@ NSString * const cellIdentifier = @"cvCell";
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    //[self drawBubbleLine];
-    
     [self scrollToCenterCell];
     [self normalizeChart];
     
@@ -66,16 +63,6 @@ NSString * const cellIdentifier = @"cvCell";
     
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:cellIdentifier];
     [self.collectionView setCollectionViewLayout:[[ChartLayout alloc] init]];
-}
-
-- (void)drawBubbleLine {
-    BubbleLine *view = [[BubbleLine alloc] initWithFrame:self.view.bounds
-                                                  coordX:self.line.frame.size.width/2
-                                                  coordY:self.line.frame.origin.y + 1
-                        ];
-    view.userInteractionEnabled = NO;
-    view.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -167,15 +154,5 @@ NSString * const cellIdentifier = @"cvCell";
     self.fortyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.4] getScaleFormattedString];
     self.twentyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.2] getScaleFormattedString];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
