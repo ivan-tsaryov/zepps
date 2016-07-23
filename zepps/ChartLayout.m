@@ -5,6 +5,7 @@
 NSInteger const kItemSize = 20;
 
 @interface ChartLayout () {
+    // property
     CGSize contentSize;
     NSArray *attributes;
 }

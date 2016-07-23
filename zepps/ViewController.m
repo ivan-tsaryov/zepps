@@ -43,6 +43,8 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     [self drawBubbleLine];
     
     [self scrollToCenterCell];
@@ -87,6 +89,8 @@
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
     
+    
+    // отказаться от тегов. Использовать проперти и IBOUTLET
     UIView *view = (UIView *) [cell viewWithTag: 50];
     view.frame = [self getNewFrameWithScale: barHeightScale basedOn: view.frame];
     
@@ -179,6 +183,8 @@
     self.twentyPercentLabel.text = [self getShortNameOfNumber: [NSNumber numberWithFloat: [maxNumber floatValue]*0.2]];
 }
 
+
+// Вынести в категорию для класса NSNumber
 -(NSString *)getShortNameOfNumber:(NSNumber *)number {
     long shortNumber = [number longValue]/1000;
     
