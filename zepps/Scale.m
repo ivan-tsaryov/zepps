@@ -85,7 +85,8 @@
             [self.scaleLines addObject: view];
             
             int superViewHeight = view.superview.bounds.size.height;
-            int shift = superViewHeight - superViewHeight * ([self.scaleValues[i] floatValue]/[maxNumber floatValue]);
+            
+            int shift = superViewHeight - superViewHeight * ([self.scaleValues[i] floatValue]/[maxNumber floatValue]) - 5;
             [self configureConstraints:shift view:view];
         }
     //}
