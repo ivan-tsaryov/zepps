@@ -22,13 +22,8 @@ NSString * const cellIdentifier = @"cvCell";
 
 
 @property (weak, nonatomic) IBOutlet UIView *selectorView;
-@property (weak, nonatomic) IBOutlet UIView *line;
 
 @property (weak, nonatomic) IBOutlet UILabel *barNumberLabel;
-@property (weak, nonatomic) IBOutlet UILabel *eightyPercentLabel;
-@property (weak, nonatomic) IBOutlet UILabel *sixtyPercentLabel;
-@property (weak, nonatomic) IBOutlet UILabel *fortyPercentLabel;
-@property (weak, nonatomic) IBOutlet UILabel *twentyPercentLabel;
 
 @property (nonatomic, strong) ChartData *chartData;
 @property (strong, nonatomic) Scale *scale;
@@ -148,12 +143,7 @@ NSString * const cellIdentifier = @"cvCell";
             [cell updateCellFrame];
             
         } completion:^(BOOL finished) {
-            //[self.view layoutIfNeeded];
-            
-            //[UIView animateWithDuration:0.3f animations:^{
-                [self.scale refreshScaleWithMax:maxNumber];
-              //  [self.view layoutIfNeeded];
-            //}];
+            [self.scale refreshScaleWithMax:maxNumber];
         }];
     }
 }

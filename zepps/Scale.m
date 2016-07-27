@@ -8,7 +8,6 @@
 
 #import "Scale.h"
 #import "ScaleItem.h"
-
 #import "NSNCategory.h"
 
 @interface Scale ()
