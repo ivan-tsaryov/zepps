@@ -11,12 +11,15 @@
 #import "ChartLayout.h"
 #import "CViewCell.h"
 #import "NSNCategory.h"
+#import "Scale.h"
 
 NSString * const cellIdentifier = @"cvCell";
 
 @interface ViewController ()
 
 @property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
+
 
 @property (weak, nonatomic) IBOutlet UIView *selectorView;
 @property (weak, nonatomic) IBOutlet UIView *line;
@@ -28,6 +31,7 @@ NSString * const cellIdentifier = @"cvCell";
 @property (weak, nonatomic) IBOutlet UILabel *twentyPercentLabel;
 
 @property (nonatomic, strong) ChartData *chartData;
+@property (strong, nonatomic) Scale *scale;
 
 @end
 
@@ -37,6 +41,7 @@ NSString * const cellIdentifier = @"cvCell";
     [super viewDidLoad];
     
     self.chartData = [[ChartData alloc] init];
+    self.scale = [[Scale alloc] initWithParentView:self.bottomView];
     
     [self configureCollectionView];
 }
@@ -47,6 +52,9 @@ NSString * const cellIdentifier = @"cvCell";
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    
+    //[self.scale refreshScale:nil];
     
     [self scrollToCenterCell];
     [self normalizeChart];
@@ -149,10 +157,53 @@ NSString * const cellIdentifier = @"cvCell";
 }
 
 -(void)updateScaleDataWithMax:(NSNumber*)maxNumber {
-    self.eightyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.8] getScaleFormattedString];
-    self.sixtyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.6] getScaleFormattedString];
-    self.fortyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.4] getScaleFormattedString];
-    self.twentyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.2] getScaleFormattedString];
+    int inc = 0;
+    
+    float num = [maxNumber integerValue] / 4.0f;
+    
+    int a = floor(num);
+    NSString *str = [NSString stringWithFormat:@"%d", a];
+    
+    int del = 25;
+    
+    if (str.length == 5) {
+        del = 5000;
+    } else if (str.length == 4) {
+        del = 500;
+    } else if (str.length == 3) {
+        del = 50;
+    } else if (str.length == 2) {
+        del = 5;
+    }
+    
+    num = num/del - 0.5;
+    inc = floor(num)*del;
+    
+    
+    NSMutableArray *arr = [[NSMutableArray alloc] init];
+    
+    int i = 0;
+    int r = inc;
+    [arr addObject: [NSNumber numberWithInt:r]];
+    while (([maxNumber integerValue] - r) > inc) {
+        r = r+ inc;
+        [arr addObject: [NSNumber numberWithInt:r]];
+        i++;
+    }
+    
+    [self.view layoutIfNeeded];
+    
+    [self.scale refreshScale:arr maxNumber:maxNumber];
+    [UIView animateWithDuration:0.3f animations:^{
+        [self.view layoutIfNeeded];
+    }];
+    
+    
+    
+//    self.eightyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.8] getScaleFormattedString];
+//    self.sixtyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.6] getScaleFormattedString];
+//    self.fortyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.4] getScaleFormattedString];
+//    self.twentyPercentLabel.text = [[NSNumber numberWithFloat: [maxNumber floatValue]*0.2] getScaleFormattedString];
 }
 
 @end

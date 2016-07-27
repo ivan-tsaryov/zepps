@@ -122,35 +122,35 @@
                                         </collectionViewLayout>
                                         <cells/>
                                     </collectionView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWb-Kn-h1i" userLabel="80% Scale">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kWb-Kn-h1i" userLabel="80% Scale">
                                         <rect key="frame" x="50" y="64" width="270" height="2"/>
                                         <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="WKr-hQ-lbG"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crI-6d-v5u" userLabel="60% Scale">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="crI-6d-v5u" userLabel="60% Scale">
                                         <rect key="frame" x="50" y="132" width="270" height="2"/>
                                         <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="8L4-2B-QdR"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="90p-4h-wXe" userLabel="40% Scale">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="90p-4h-wXe" userLabel="40% Scale">
                                         <rect key="frame" x="50" y="201" width="270" height="2"/>
                                         <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="HFE-S8-jP3"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRt-Tr-c0J" userLabel="20% Scale">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRt-Tr-c0J" userLabel="20% Scale">
                                         <rect key="frame" x="50" y="270" width="270" height="2"/>
                                         <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="lti-V4-zHQ"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRT-gb-xfR" userLabel="80% Label">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PRT-gb-xfR" userLabel="80% Label">
                                         <rect key="frame" x="0.0" y="50" width="50" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="fvo-px-c71"/>
@@ -160,7 +160,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWM-9T-YiQ" userLabel="60% Label">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWM-9T-YiQ" userLabel="60% Label">
                                         <rect key="frame" x="0.0" y="115" width="50" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="DD9-5f-tPr"/>
@@ -170,7 +170,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdd-RW-QlL" userLabel="40% Label">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdd-RW-QlL" userLabel="40% Label">
                                         <rect key="frame" x="0.0" y="190" width="50" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="LZ6-Xg-Enb"/>
@@ -180,7 +180,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JC2-ZN-6Me" userLabel="20% Label">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="н/д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JC2-ZN-6Me" userLabel="20% Label">
                                         <rect key="frame" x="0.0" y="264" width="50" height="16"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="16" id="D3d-bv-Vti"/>
@@ -233,7 +233,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="CiA-UX-pZq" firstAttribute="leading" secondItem="lXH-mG-oNJ" secondAttribute="leading" id="0lc-f9-dgm"/>
                             <constraint firstItem="NE8-sN-9iM" firstAttribute="top" secondItem="CiA-UX-pZq" secondAttribute="bottom" id="4Qk-pb-lEk"/>
@@ -253,6 +253,7 @@
                     </view>
                     <connections>
                         <outlet property="barNumberLabel" destination="r5R-jC-6Vu" id="hv6-E4-t0O"/>
+                        <outlet property="bottomView" destination="CiA-UX-pZq" id="WOI-St-19B"/>
                         <outlet property="collectionView" destination="wGo-hx-V2O" id="pf9-NZ-q3W"/>
                         <outlet property="eightyPercentLabel" destination="PRT-gb-xfR" id="dxW-op-hkV"/>
                         <outlet property="fortyPercentLabel" destination="Sdd-RW-QlL" id="Uhj-PE-p1a"/>
