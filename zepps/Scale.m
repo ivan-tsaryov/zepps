@@ -48,7 +48,7 @@
     
     int div = [[self.dividers objectForKey:[NSNumber numberWithUnsignedInteger: numCount]] intValue];
     
-    quarterOfMax = quarterOfMax / div + 0.5;
+    quarterOfMax = quarterOfMax / div;
     increment = floor(quarterOfMax) * div;
     
     int temp = increment;
@@ -66,7 +66,7 @@
 - (void)refreshScaleWithMax:(NSNumber *)maxNumber {
     [self getScaleValuesWithMax:maxNumber];
     
-    if (self.needChangeScales) {
+    //if (self.needChangeScales) {
         for (UIView *line in self.scaleLines) {
             [line removeFromSuperview];
         }
@@ -88,7 +88,7 @@
             int shift = superViewHeight - superViewHeight * ([self.scaleValues[i] floatValue]/[maxNumber floatValue]);
             [self configureConstraints:shift view:view];
         }
-    }
+    //}
 }
 
 - (void)configureConstraints:(int)shift view:(UIView *)view {
