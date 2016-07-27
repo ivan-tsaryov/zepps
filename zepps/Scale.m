@@ -15,7 +15,10 @@
 
 @property (nonatomic, strong) UIView *parentView;
 
-@property (strong, nonatomic) NSMutableArray<UIView *> *lines;
+@property (strong, nonatomic) NSMutableArray<UIView *> *scaleLines;
+@property (strong, nonatomic) NSMutableArray *scaleValues;
+
+@property (strong, nonatomic) NSDictionary *dividers;
 
 @end
 
@@ -24,42 +27,72 @@
 - (instancetype)initWithParentView:(UIView *)parentView {
     self = [super init];
     if (self) {
-        _parentView = parentView;
-        _lines = [[NSMutableArray alloc] init];
+        self.parentView = parentView;
+        self.scaleLines = [[NSMutableArray alloc] init];
+        self.scaleValues = [[NSMutableArray alloc] init];
+        
+        self.dividers = @{@5 : @5000, @4 : @500, @3 : @50, @2 : @5};
     }
     return self;
 }
 
+- (void)getScaleValuesWithMax:(NSNumber *)maxNumber {
+    [self.scaleValues removeAllObjects];
 
-- (void)refreshScale:(NSMutableArray *)values maxNumber:(NSNumber *)num {
-    for (UIView *v in self.lines) {
-        [v removeFromSuperview];
+    int increment = 0;
+    float quarterOfMax = [maxNumber floatValue] / 4;
+    
+    NSUInteger numCount = [@(floor(quarterOfMax)) stringValue].length;
+    
+    int div = 25;
+    
+    if (numCount == 5) {
+        div = 5000;
+    } else if (numCount == 4) {
+        div = 500;
+    } else if (numCount == 3) {
+        div = 50;
+    } else if (numCount == 2) {
+        div = 5;
     }
     
-    for (int i = 0; i < values.count; i++) {
-        ScaleItem *view = [[ScaleItem alloc] init];
-        view.label.text = [values[i] getScaleFormattedString];
-        [self.parentView addSubview:view];
-        
-        
-        view.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        int con = view.superview.bounds.size.height - view.superview.bounds.size.height*([values[i] floatValue]/[num floatValue]);
-        
-        //[self.parentView layoutIfNeeded];
-        [self configureConstraints:con view:view];
-        //[UIView animateWithDuration: 0.3f animations: ^{
-            [self.parentView layoutIfNeeded];
-        //}];
-        
-        
-        [self.lines addObject: view];
+    quarterOfMax = quarterOfMax / div - 0.5;
+    increment = floor(quarterOfMax) * div;
+    
+    
+    int temp = increment;
+    [self.scaleValues addObject: @(temp)];
+    
+    while (([maxNumber integerValue] - temp) > increment) {
+        temp = temp + increment;
+        [self.scaleValues addObject: @(temp)];
     }
-
-   
 }
 
-- (void)configureConstraints:(int) constant view:(UIView *)view {
+- (void)refreshScaleWithMax:(NSNumber *)maxNumber {
+    [self getScaleValuesWithMax:maxNumber];
+    
+    for (UIView *line in self.scaleLines) {
+        [line removeFromSuperview];
+    }
+    [self.scaleLines removeAllObjects];
+    
+    for (int i = 0; i < self.scaleValues.count; i++) {
+        ScaleItem *view = [[ScaleItem alloc] init];
+        
+        view.label.text = [self.scaleValues[i] getScaleFormattedString];
+        [self.parentView addSubview:view];
+        view.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        [self.scaleLines addObject: view];
+        
+        int superViewHeight = view.superview.bounds.size.height;
+        int shift = superViewHeight - superViewHeight * ([self.scaleValues[i] floatValue]/[maxNumber floatValue]);
+        [self configureConstraints:shift view:view];
+    }
+}
+
+- (void)configureConstraints:(int)shift view:(UIView *)view {
     [NSLayoutConstraint constraintWithItem: view
                                  attribute: NSLayoutAttributeLeading
                                  relatedBy: NSLayoutRelationEqual
@@ -84,7 +117,7 @@
                                     toItem: view.superview
                                  attribute: NSLayoutAttributeTop
                                 multiplier: 1
-                                  constant: constant
+                                  constant: shift
      ].active = true;
     
     [NSLayoutConstraint constraintWithItem: view
@@ -95,7 +128,6 @@
                                 multiplier: 1
                                   constant: 16
      ].active = true;
-
 }
 
 @end

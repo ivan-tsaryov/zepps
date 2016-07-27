@@ -12,6 +12,6 @@
 @interface Scale : NSObject
 
 -(instancetype)initWithParentView:(UIView *)parentView;
--(void)refreshScale:(NSMutableArray *)values maxNumber:(NSNumber *)num;
+-(void)refreshScaleWithMax:(NSNumber *)maxNumber;
 
 @end
