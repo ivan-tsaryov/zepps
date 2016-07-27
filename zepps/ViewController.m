@@ -150,11 +150,10 @@ NSString * const cellIdentifier = @"cvCell";
         } completion:^(BOOL finished) {
             //[self.view layoutIfNeeded];
             
-            [self.scale refreshScaleWithMax:maxNumber];
-            
-            [UIView animateWithDuration:0.3f animations:^{
-                //[self.view layoutIfNeeded];
-            }];
+            //[UIView animateWithDuration:0.3f animations:^{
+                [self.scale refreshScaleWithMax:maxNumber];
+              //  [self.view layoutIfNeeded];
+            //}];
         }];
     }
 }

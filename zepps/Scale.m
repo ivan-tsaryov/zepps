@@ -20,6 +20,9 @@
 
 @property (strong, nonatomic) NSDictionary *dividers;
 
+@property BOOL needChangeScales;
+@property int prevIncrement;
+
 @end
 
 @implementation Scale
@@ -31,7 +34,7 @@
         self.scaleLines = [[NSMutableArray alloc] init];
         self.scaleValues = [[NSMutableArray alloc] init];
         
-        self.dividers = @{@5 : @5000, @4 : @500, @3 : @50, @2 : @5};
+        self.dividers = @{@5 : @5000, @4 : @500, @3 : @50, @2 : @5, @1 : @1};
     }
     return self;
 }
@@ -40,25 +43,14 @@
     [self.scaleValues removeAllObjects];
 
     int increment = 0;
-    float quarterOfMax = [maxNumber floatValue] / 4;
+    float quarterOfMax = [maxNumber floatValue] / 5;
     
     NSUInteger numCount = [@(floor(quarterOfMax)) stringValue].length;
     
-    int div = 25;
+    int div = [[self.dividers objectForKey:[NSNumber numberWithUnsignedInteger: numCount]] intValue];
     
-    if (numCount == 5) {
-        div = 5000;
-    } else if (numCount == 4) {
-        div = 500;
-    } else if (numCount == 3) {
-        div = 50;
-    } else if (numCount == 2) {
-        div = 5;
-    }
-    
-    quarterOfMax = quarterOfMax / div - 0.5;
+    quarterOfMax = quarterOfMax / div + 0.5;
     increment = floor(quarterOfMax) * div;
-    
     
     int temp = increment;
     [self.scaleValues addObject: @(temp)];
@@ -67,28 +59,36 @@
         temp = temp + increment;
         [self.scaleValues addObject: @(temp)];
     }
+    
+    self.needChangeScales = (increment != self.prevIncrement);
+    self.prevIncrement = increment;
 }
 
 - (void)refreshScaleWithMax:(NSNumber *)maxNumber {
     [self getScaleValuesWithMax:maxNumber];
     
-    for (UIView *line in self.scaleLines) {
-        [line removeFromSuperview];
-    }
-    [self.scaleLines removeAllObjects];
-    
-    for (int i = 0; i < self.scaleValues.count; i++) {
-        ScaleItem *view = [[ScaleItem alloc] init];
+    if (self.needChangeScales) {
+        for (UIView *line in self.scaleLines) {
+            [line removeFromSuperview];
+        }
+        [self.scaleLines removeAllObjects];
         
-        view.label.text = [self.scaleValues[i] getScaleFormattedString];
-        [self.parentView addSubview:view];
-        view.translatesAutoresizingMaskIntoConstraints = NO;
         
-        [self.scaleLines addObject: view];
-        
-        int superViewHeight = view.superview.bounds.size.height;
-        int shift = superViewHeight - superViewHeight * ([self.scaleValues[i] floatValue]/[maxNumber floatValue]);
-        [self configureConstraints:shift view:view];
+        [self.parentView layoutIfNeeded];
+        for (int i = 0; i < self.scaleValues.count; i++) {
+            ScaleItem *view = [[ScaleItem alloc] init];
+            
+            view.label.text = [self.scaleValues[i] getScaleFormattedString];
+            [self.parentView addSubview:view];
+            
+            view.translatesAutoresizingMaskIntoConstraints = NO;
+            
+            [self.scaleLines addObject: view];
+            
+            int superViewHeight = view.superview.bounds.size.height;
+            int shift = superViewHeight - superViewHeight * ([self.scaleValues[i] floatValue]/[maxNumber floatValue]);
+            [self configureConstraints:shift view:view];
+        }
     }
 }
 
